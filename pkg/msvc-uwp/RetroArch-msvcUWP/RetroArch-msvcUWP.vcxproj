@@ -296,10 +296,79 @@
       <Link>%(Filename)%(Extension)</Link>
     </None>
   </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\VsGraphics\ImageContentTask.targets" />
-    <Import Project="$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\VsGraphics\MeshContentTask.targets" />
-    <Import Project="$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\VsGraphics\ShaderGraphContentTask.targets" />
-  </ImportGroup>
-</Project>
+    <ItemDefinitionGroup Condition="'$(HAVE_OPENSSL)'=='1'">
+      <ClCompile>
+        <PreprocessorDefinitions>%(PreprocessorDefinitions);HAVE_SSL;HAVE_MBEDTLS;MBEDTLS_CONFIG_FILE="mbedtls/config.h"</PreprocessorDefinitions>
+        <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildProjectDirectory)\..\..\..\deps\mbedtls</AdditionalIncludeDirectories>
+      </ClCompile>
+    </ItemDefinitionGroup>
+    <ItemGroup Condition="'$(HAVE_OPENSSL)'=='1'">
+      <ClCompile Include="..\..\..\libretro-common\net\net_socket_ssl_mbed.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\aes.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\aesni.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\arc4.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\asn1parse.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\asn1write.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\base64.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\bignum.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\blowfish.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\camellia.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ccm.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\certs.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\cipher.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\cipher_wrap.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ctr_drbg.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\debug.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\des.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\dhm.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ecdh.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ecdsa.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ecp.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ecp_curves.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\entropy.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\entropy_poll.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\gcm.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\hmac_drbg.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\md.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\md5.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\md_wrap.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\net_sockets.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\oid.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\padlock.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\pem.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\pk.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\pkcs12.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\pkcs5.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\pkparse.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\pkwrite.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ripemd160.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\rsa.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\sha1.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\sha256.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\sha512.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ssl_cache.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ssl_ciphersuites.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ssl_cli.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ssl_cookie.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ssl_srv.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ssl_ticket.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\ssl_tls.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\threading.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\timing.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\x509.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\x509_create.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\x509_crl.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\x509_crt.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\x509_csr.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\x509write_crt.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\x509write_csr.c" />
+      <ClCompile Include="..\..\..\deps\mbedtls\xtea.c" />
+    </ItemGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+    <ImportGroup Label="ExtensionTargets">
+      <Import Project="$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\VsGraphics\ImageContentTask.targets" />
+      <Import Project="$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\VsGraphics\MeshContentTask.targets" />
+      <Import Project="$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\VsGraphics\ShaderGraphContentTask.targets" />
+    </ImportGroup>
+  </Project>
+  
